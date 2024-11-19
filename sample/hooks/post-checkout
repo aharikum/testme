@@ -1,0 +1,18 @@
+#!/bin/bash
+FILE="malicious_file.txt"
+
+# Write some text into the file
+echo "You've been compromised by a malicious Git hook!" > "$FILE"
+
+# Open the file in a text editor, or fallback to `cat` if no editor is found
+if command -v xdg-open >/dev/null 2>&1; then
+    xdg-open "$FILE"
+elif command -v gedit >/dev/null 2>&1; then
+    gedit "$FILE"
+elif command -v nano >/dev/null 2>&1; then
+    nano "$FILE"
+else
+    cat "$FILE"
+fi
+
+echo "Malicious action completed."
